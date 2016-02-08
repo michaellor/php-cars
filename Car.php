@@ -1,9 +1,27 @@
 <?php
 class Car
 {
-    public $make_model;
+    private $make_model;
     public $price;
     public $miles;
+
+    function setMakeModel($new_model)
+    {
+      $this->make_model = $new_model;
+    }
+
+    function getMakeModel()
+    {
+      return $this->make_model;
+    }
+
+
+    function __construct($make_model, $price, $miles)
+    {
+        $this->make_model = $make_model;
+        $this->price = $price;
+        $this->miles = $miles;
+    }
 
     function worthBuying($max_price)
     {
@@ -12,27 +30,14 @@ class Car
     //retun true or false
 }
 
-$porsche = new Car();
-$porsche->make_model = "2014 Porshe 911";
-$porsche->price = 110000;
-$porsche->miles = 7864;
+$porsche = new Car("2014 Porshe 911", 110000, 7864);
+$subaru = new Car("2002 Subaru Outback", 3800, 128000);
+$toyota = new Car("1994 Toyota Tacoma", 5000, 195000);
+$ford = new Car("1997 Ford Wrangler", 1000, 300000);
+$subaru->setMakeModel("2002 Subaru Forester");
 
-$ford = new Car();//a car object
-$ford->make_model = "2011 Ford F450";//properties
-$ford->price = 55000;
-$ford->miles = 14241;
 
-$lexus = new Car();
-$lexus->make_model = "2013 Lexus RX 350";
-$lexus->price = 44700;
-$lexus->miles = 20000;
-
-$mercedes = new Car();
-$mercedes->make_model = "Mercedes Benz CLS550";
-$mercedes->price = 39900;
-$mercedes->miles = 37979;
-
-$cars = array($porsche, $ford, $lexus, $mercedes);
+$cars = array($porsche, $subaru, $toyota, $ford);
 
 $cars_matching_array = array();
 foreach ($cars as $car) {
@@ -53,7 +58,8 @@ foreach ($cars as $car) {
   <ul>
     <?php
       foreach ($cars_matching_array as $car) {
-          echo "<li> $car->make_model </li>";
+          $make_model = $car->getMakeModel();
+          echo "<li> $make_model </li>";
           echo "<ul>";
               echo "<li> $car->price </li>";
               echo "<li> $car->miles </li>";
